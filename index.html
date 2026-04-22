@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyGuard | Advanced Flight Simulation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+    <!-- GSAP for smooth animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="dashboard-theme">
+    <div class="glass-sidebar">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <i data-lucide="shield-check"></i>
+                    <h1>SkyGuard<span>OS</span></h1>
+                </div>
+                <button id="themeToggle" class="theme-btn" title="Toggle Theme">
+                    <i data-lucide="sun" id="themeIcon"></i>
+                </button>
+            </div>
+            <p class="subtitle">Aviation Simulation Engine v2.0</p>
+        </header>
+
+        <section class="controls">
+            <div class="input-card">
+                <label><i data-lucide="plane-takeoff"></i> Departure</label>
+                <select id="sourceSelect"><option value="">Select Origin</option></select>
+
+                <label><i data-lucide="plane-landing"></i> Destination</label>
+                <select id="destSelect"><option value="">Select Arrival</option></select>
+
+                <label><i data-lucide="target"></i> Optimization Objective</label>
+                <div class="priority-selector">
+                    <button id="timeBtn" class="active" title="Fastest Route"><i data-lucide="clock"></i></button>
+                    <button id="fuelBtn" title="Lowest Fuel"><i data-lucide="droplet"></i></button>
+                    <button id="safetyBtn" title="Avoid Weather"><i data-lucide="shield"></i></button>
+                </div>
+
+                <button id="planBtn" class="action-btn">
+                    <span>Initialize Flight</span>
+                    <i data-lucide="play"></i>
+                </button>
+            </div>
+
+            <div id="resultCard" class="result-card hidden">
+                <h3><i data-lucide="activity"></i> Mission Telemetry</h3>
+                <div class="metrics-container">
+                    <div class="metric">
+                        <span class="m-label">Distance</span>
+                        <span class="m-value" id="distVal">--</span>
+                        <span class="m-unit">KM</span>
+                    </div>
+                    <div class="metric">
+                        <span class="m-label">Air Time</span>
+                        <span class="m-value" id="timeVal">--</span>
+                        <span class="m-unit">HRS</span>
+                    </div>
+                    <div class="metric highlight">
+                        <span class="m-label">Fuel Burn</span>
+                        <span class="m-value" id="fuelVal">--</span>
+                        <span class="m-unit">KG</span>
+                    </div>
+                    <div class="metric">
+                        <span class="m-label">Congestion</span>
+                        <span class="m-value" id="congVal">--</span>
+                        <span class="m-unit">LEVEL</span>
+                    </div>
+                </div>
+                
+                <div class="impact-indicator" id="weatherImpact">
+                    <i data-lucide="cloud-lightning"></i>
+                    <span>Weather Risk: <b id="weatherVal">Low</b></span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <main class="visualizer">
+        <div id="map"></div>
+        <div class="map-overlay">
+            <div class="legend">
+                <div class="l-item"><span class="l-line normal"></span> Optimal</div>
+                <div class="l-item"><span class="l-line weather"></span> Weather Alert</div>
+                <div class="l-item"><span class="l-line restricted"></span> Restricted</div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
